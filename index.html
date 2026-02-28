@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KWFEGVFVK1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KWFEGVFVK1');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بيت مال المسلمين بجديدة الهالة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+        .quran-text { font-family: 'Amiri', serif; }
+        .gradient-bg { background: linear-gradient(135deg, #1a472a 0%, #2d5a27 100%); }
+        .glass-morphism { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .card-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+        .prayer-active { background-color: #fef3c7; border-right: 4px solid #d97706; font-weight: bold; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); }
+        .bookmark-glow { border: 2px solid #d97706; background-color: #fffbeb; border-radius: 8px; position: relative; }
+        .bookmark-glow::after { content: '🔖'; position: absolute; top: -10px; left: -5px; font-size: 1.2rem; }
+        .zekr-card { transition: all 0.3s; border-right: 4px solid transparent; }
+        .zekr-card.done { opacity: 0.6; background-color: #f3f4f6; border-right-color: #10b981; }
+        .zekr-count { min-width: 40px; height: 40px; border-radius: 50%; display: flex; items-center; justify-content: center; font-weight: bold; }
+        .tasbeeh-circle { width: 180px; height: 180px; border: 8px solid #1a472a; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.1s active; }
+        .tasbeeh-circle:active { transform: scale(0.95); }
+        
+        /* Islamic Box Decoration */
+        .islamic-box {
+            background-color: #fffdf5;
+            border: 2px double #c5a059;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .islamic-box::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        .islamic-pattern-corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #c5a059;
+        }
+        .top-right { top: 5px; right: 5px; border-bottom: 0; border-left: 0; }
+        .top-left { top: 5px; left: 5px; border-bottom: 0; border-right: 0; }
+        .bottom-right { bottom: 5px; right: 5px; border-top: 0; border-left: 0; }
+        .bottom-left { bottom: 5px; left: 5px; border-top: 0; border-right: 0; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Modal Popup for Daily Hadith -->
+    <div id="hadithModal" class="modal flex items-center justify-center p-4 text-right">
+        <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl relative border-2 border-[#c5a059]">
+            <button onclick="closeModal()" class="absolute top-4 left-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times"></i></button>
+            <div class="text-center">
+                <i class="fas fa-quote-right text-3xl text-green-600 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2 text-green-800 text-right">حديث اليوم</h3>
+                <p id="dailyHadithText" class="text-lg leading-relaxed italic mb-4 text-right">"مَنْ كَانَ فِي حَاجَةِ أَخِيهِ كَانَ اللَّهُ فِي حَاجَتِهِ"</p>
+                <button onclick="closeModal()" class="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 shadow-md transition">تقبل الله منا ومنكم</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="gradient-bg text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 text-right">
+            <div class="flex flex-wrap justify-between items-center">
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <div class="bg-white p-2 rounded-full w-12 h-12 flex items-center justify-center shadow-md">
+                        <i class="fas fa-mosque text-green-700 text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl md:text-2xl font-bold text-white">بيت مال المسلمين بجديدة الهالة</h1>
+                        <p class="text-xs md:text-sm opacity-90">تحت إشراف المدير المسئول الأستاذ رضا زكى</p>
+                    </div>
+                </div>
+                <div class="flex gap-2 mt-2 md:mt-0">
+                    <a href="tel:01005262105" class="bg-white text-green-800 px-3 py-1 rounded-lg text-sm font-bold flex items-center hover:bg-gray-100 transition shadow-sm">
+                        <i class="fas fa-phone-alt ml-2"></i> اتصل بنا
+                    </a>
+                    <a href="https://www.facebook.com/ALANSANUO" target="_blank" class="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm flex items-center shadow-md hover:bg-blue-700 transition">
+                        <i class="fab fa-facebook ml-2"></i> فيسبوك
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav class="bg-white shadow-md overflow-x-auto whitespace-nowrap scrollbar-hide border-b border-gray-100 sticky top-[72px] z-40">
+        <div class="container mx-auto px-4 flex justify-center space-x-4 space-x-reverse py-3 text-right">
+            <button onclick="showPage('home')" class="nav-btn text-green-700 font-bold px-4 border-l border-gray-100 transition hover:bg-green-50">الرئيسية</button>
+            <button onclick="showPage('programs')" class="nav-btn hover:text-green-700 px-4 border-l border-gray-100 transition hover:bg-green-50">برامج الخير والتبرع</button>
+            <button onclick="showPage('zakat-calc')" class="nav-btn hover:text-green-700 px-4 border-l border-gray-100 transition hover:bg-green-50">حاسبة الزكاة</button>
+            <button onclick="showPage('quran')" class="nav-btn hover:text-green-700 px-4 border-l border-gray-100 transition hover:bg-green-50">المصحف الشريف</button>
+            <button onclick="showPage('azkar')" class="nav-btn hover:text-green-700 px-4 border-l border-gray-100 transition hover:bg-green-50">الأذكار والحديث</button>
+            <button onclick="showPage('tasbeeh')" class="nav-btn hover:text-green-700 px-4 border-l border-gray-100 text-blue-600 font-bold transition hover:bg-blue-50">المسبحة</button>
+            <button onclick="showPage('blood-bank')" class="nav-btn hover:text-green-700 px-4 border-l border-gray-100 transition hover:bg-green-50 text-red-600">بنك الدم</button>
+            <button onclick="showPage('complaints')" class="nav-btn text-orange-600 font-bold px-4 hover:text-orange-700 transition hover:bg-orange-50">الشكاوى</button>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        
+        <!-- Home Section -->
+        <section id="home-page" class="page-content">
+            <div class="grid md:grid-cols-3 gap-6 text-right">
+                <!-- Main Content (2 columns) -->
+                <div class="md:col-span-2 space-y-6">
+                    
+                    <!-- Zakat Virtues Section -->
+                    <div class="bg-green-50 p-6 rounded-2xl shadow-sm border border-green-200 relative overflow-hidden card-hover transition duration-300">
+                        <div class="relative z-10">
+                            <h2 class="text-2xl font-bold text-green-900 mb-3 border-r-4 border-green-600 pr-3">فضل الزكاة ومساعدة المحتاجين</h2>
+                            <p class="text-green-800 leading-relaxed text-lg leading-loose">
+                                قال تعالى: <span class="quran-text font-bold italic text-green-900">"{خُذْ مِنْ أَمْوَالِهِمْ صَدَقَةً تُطَهِّرُهُمْ وَتُزَكِّيهِم بِهَا}"</span>. 
+                                إن الزكاة هي نماء للمال وطهارة للنفس، وبها تحفظ النعم وتدفع النقم. مساهمتك في بيت المال بجديدة الهالة هي يد عونٍ تُمدُّ لفقير، وفرحة تدخلها على قلب يتيم، واستثمارٌ رابحٌ مع الله يضاعف الأجر ويرفع الدرجات.
+                            </p>
+                        </div>
+                        <i class="fas fa-hand-holding-heart absolute left-4 bottom-4 text-green-600 text-7xl opacity-10"></i>
+                    </div>
+
+                    <!-- About Us Section -->
+                    <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+                        <div class="gradient-bg p-4 flex items-center justify-between">
+                            <h2 class="text-xl font-bold text-white pr-2 border-r-4 border-white">من نحن | بيت مال المسلمين جديدة الهالة</h2>
+                            <i class="fas fa-info-circle text-white text-xl opacity-80"></i>
+                        </div>
+                        
+                        <div class="p-8">
+                            <div class="grid md:grid-cols-2 gap-8 mb-10">
+                                <div class="bg-blue-50 p-5 rounded-2xl border-r-4 border-blue-600">
+                                    <h3 class="font-bold text-blue-900 mb-2 flex items-center gap-2">
+                                        <i class="fas fa-eye text-blue-600"></i> رؤيتنا
+                                    </h3>
+                                    <p class="text-gray-700 text-sm leading-relaxed">أن نكون المنارة الرائدة في قرية الجديدة الهالة لخدمة كتاب الله وتنشئة جيلٍ قرآني يتحلى بالخلق الرفيع، متمسكاً بدينه، ونافعاً لمجتمعه.</p>
+                                </div>
+                                <div class="bg-emerald-50 p-5 rounded-2xl border-r-4 border-emerald-600">
+                                    <h3 class="font-bold text-emerald-900 mb-2 flex items-center gap-2">
+                                        <i class="fas fa-bullseye text-emerald-600"></i> رسالتنا
+                                    </h3>
+                                    <p class="text-gray-700 text-sm leading-relaxed">توفير رعاية متكاملة لطلاب العلم وحفظة القرآن الكريم عبر برامج متقنة وإشراف تربوي متميز، مع بناء جسور الثقة مع الداعمين والمحسنين.</p>
+                                </div>
+                            </div>
+
+                            <h3 class="text-lg font-bold text-green-800 mb-6 text-center border-b pb-2">قيمنا وأهدافنا الجوهرية</h3>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="p-4 rounded-xl border border-gray-100 hover:bg-gray-50 transition flex items-start gap-3">
+                                    <div class="bg-green-100 p-3 rounded-full text-green-700"><i class="fas fa-check-double"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-sm text-gray-800 mb-1">الإتقان والتميز</h4>
+                                        <p class="text-[11px] text-gray-500 italic leading-relaxed">تمكين الطلاب من الحفظ والتجويد الصحيح تحت إشراف نخبة من المحفظين.</p>
+                                    </div>
+                                </div>
+                                <div class="p-4 rounded-xl border border-gray-100 hover:bg-gray-50 transition flex items-start gap-3 text-right">
+                                    <div class="bg-yellow-100 p-3 rounded-full text-yellow-700"><i class="fas fa-trophy"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-sm text-gray-800 mb-1 text-right">التحفيز المستدام</h4>
+                                        <p class="text-[11px] text-gray-500 italic leading-relaxed text-right">خلق روح التنافس عبر مكافآت مجزية ورحلات إيمانية لبيت الله الحرام.</p>
+                                    </div>
+                                </div>
+                                <div class="p-4 rounded-xl border border-gray-100 hover:bg-gray-50 transition flex items-start gap-3">
+                                    <div class="bg-purple-100 p-3 rounded-full text-purple-700"><i class="fas fa-shield-halved"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-sm text-gray-800 mb-1">بناء القيم</h4>
+                                        <p class="text-[11px] text-gray-500 italic leading-relaxed">غرس الآداب الإسلامية والوسطية في نفوس الناشئة ليكونوا قدوة صالحة.</p>
+                                    </div>
+                                </div>
+                                <div class="p-4 rounded-xl border border-gray-100 hover:bg-gray-50 transition flex items-start gap-3">
+                                    <div class="bg-blue-100 p-3 rounded-full text-blue-700"><i class="fas fa-users"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-sm text-gray-800 mb-1">المسؤولية المجتمعية</h4>
+                                        <p class="text-[11px] text-gray-500 italic leading-relaxed text-right">فتح باب الصدقة الجارية لأهالي القرية والمحسنين لبناء صرح إيماني للأجيال.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar (1 column) -->
+                <div class="space-y-6">
+                    <!-- Prayer Times Card -->
+                    <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-green-600">
+                        <h3 class="text-xl font-bold text-center mb-2">مواقيت الصلاة</h3>
+                        <div class="mb-4">
+                            <select id="citySelect" onchange="fetchPrayerTimes()" class="w-full p-2 text-sm border rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500 outline-none text-right">
+                                <option value="Mansoura" selected>الدقهلية (المنصورة)</option>
+                                <option value="Cairo">القاهرة</option>
+                                <option value="Alexandria">الإسكندرية</option>
+                                <option value="Giza">الجيزة</option>
+                            </select>
+                        </div>
+                        <div id="date-display" class="text-center text-xs mb-1 font-bold text-gray-600 leading-relaxed italic">جاري التحميل...</div>
+                        <div id="hijri-display" class="text-center text-sm mb-4 font-bold text-green-700"></div>
+                        <div id="prayer-list" class="space-y-2 text-right border-t pt-2"></div>
+                        <div id="next-prayer-countdown" class="mt-6 gradient-bg text-white p-3 rounded-xl text-center shadow-inner">
+                            <div id="next-prayer-name" class="text-xs uppercase opacity-80 mb-1">المتبقي للصلاة القادمة</div>
+                            <div id="timer" class="text-2xl font-bold tracking-widest">00:00:00</div>
+                        </div>
+                    </div>
+
+                    <!-- Quran Memorization Fund -->
+                    <div class="bg-white p-6 rounded-2xl shadow-md border border-yellow-200 card-hover transition duration-300">
+                        <h2 class="text-lg font-bold text-yellow-800 mb-4 flex items-center justify-center gap-2 text-right">
+                             صندوق تحفيظ القرآن الكريم <i class="fas fa-book-open"></i>
+                        </h2>
+                        <div class="space-y-3 text-right">
+                            <div class="flex items-center gap-3 p-3 bg-yellow-50 rounded-xl shadow-sm border border-yellow-100">
+                                <div class="bg-yellow-200 p-2 rounded-full text-yellow-800"><i class="fas fa-user-tie"></i></div>
+                                <div>
+                                    <p class="font-bold text-sm">كفالة محفظ</p>
+                                    <p class="text-[10px] text-gray-500 italic">دعم المعلم لبناء الأجيال</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-yellow-50 rounded-xl shadow-sm border border-yellow-100">
+                                <div class="bg-yellow-200 p-2 rounded-full text-yellow-800"><i class="fas fa-child"></i></div>
+                                <div>
+                                    <p class="font-bold text-sm text-right">كفالة طالب علم</p>
+                                    <p class="text-[10px] text-gray-500 italic text-right">مساعدة الحفظة النابغين</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-yellow-50 rounded-xl shadow-sm border border-yellow-100">
+                                <div class="bg-yellow-200 p-2 rounded-full text-yellow-800"><i class="fas fa-kaaba"></i></div>
+                                <div>
+                                    <p class="font-bold text-sm text-right">مساهمة عمرة</p>
+                                    <p class="text-[10px] text-gray-500 italic text-right text-right">جائزة خاتمي كتاب الله</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="showPage('programs')" class="w-full mt-4 bg-yellow-600 text-white text-xs py-2 rounded-lg font-bold hover:bg-yellow-700 transition">ساهم الآن في الأجر</button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Programs Section -->
+        <section id="programs-page" class="page-content hidden">
+            <h2 class="text-3xl font-bold text-center mb-10 text-green-900 border-b-2 border-green-100 pb-4 text-right">برامج الخير والتبرع</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-right">
+                <div onclick="openDonation('زكاة مال')" class="bg-white p-6 rounded-2xl shadow-sm card-hover cursor-pointer text-center border border-gray-100 border-b-4 border-green-500">
+                    <i class="fas fa-hand-holding-dollar text-3xl text-green-600 mb-3"></i>
+                    <h3 class="font-bold text-center">زكاة مال</h3>
+                </div>
+                <div onclick="openDonation('صدقات')" class="bg-white p-6 rounded-2xl shadow-sm card-hover cursor-pointer text-center border border-gray-100 border-b-4 border-orange-500">
+                    <i class="fas fa-coins text-3xl text-orange-500 mb-3"></i>
+                    <h3 class="font-bold text-center">صدقات</h3>
+                </div>
+                <div onclick="openDonation('صدقة جارية')" class="bg-white p-6 rounded-2xl shadow-sm card-hover cursor-pointer text-center border border-gray-100 border-b-4 border-blue-500">
+                    <i class="fas fa-infinity text-3xl text-blue-500 mb-3"></i>
+                    <h3 class="font-bold text-center">صدقة جارية</h3>
+                </div>
+                <div onclick="openDonation('زكاة الفطر')" class="bg-white p-6 rounded-2xl shadow-sm card-hover cursor-pointer text-center border border-gray-100 border-b-4 border-yellow-600">
+                    <i class="fas fa-wheat-awn text-3xl text-yellow-600 mb-3"></i>
+                    <h3 class="font-bold text-center">زكاة الفطر</h3>
+                </div>
+                <div onclick="openDonation('الأيتام')" class="bg-white p-6 rounded-2xl shadow-sm card-hover cursor-pointer text-center border border-gray-100 border-b-4 border-pink-500">
+                    <i class="fas fa-child-reaching text-3xl text-pink-500 mb-3"></i>
+                    <h3 class="font-bold text-center">الأيتام</h3>
+                </div>
+                <div onclick="openDonation('الأرامل')" class="bg-white p-6 rounded-2xl shadow-sm card-hover cursor-pointer text-center border border-gray-100 border-b-4 border-indigo-500">
+                    <i class="fas fa-person-breastfeeding text-3xl text-indigo-500 mb-3"></i>
+                    <h3 class="font-bold text-center">الأرامل</h3>
+                </div>
+                <div onclick="openDonation('خدمات صحية')" class="bg-white p-6 rounded-2xl shadow-sm card-hover cursor-pointer text-center border border-gray-100 border-b-4 border-red-500">
+                    <i class="fas fa-heart-pulse text-3xl text-red-500 mb-3"></i>
+                    <h3 class="font-bold text-center">خدمات صحية</h3>
+                </div>
+                <div onclick="openDonation('المتعففين')" class="bg-white p-6 rounded-2xl shadow-sm card-hover cursor-pointer text-center border border-gray-100 border-b-4 border-teal-500">
+                    <i class="fas fa-hands-holding text-3xl text-teal-500 mb-3"></i>
+                    <h3 class="font-bold text-center">المتعففين</h3>
+                </div>
+                <div onclick="openDonation('الغارمين')" class="bg-white p-6 rounded-2xl shadow-sm card-hover cursor-pointer text-center border border-gray-100 border-b-4 border-purple-500">
+                    <i class="fas fa-file-invoice-dollar text-3xl text-purple-500 mb-3"></i>
+                    <h3 class="font-bold text-center">الغارمين</h3>
+                </div>
+                <div onclick="openDonation('فرحة')" class="bg-white p-6 rounded-2xl shadow-sm card-hover cursor-pointer text-center border border-gray-100 border-b-4 border-pink-400">
+                    <i class="fas fa-gift text-3xl text-pink-400 mb-3"></i>
+                    <h3 class="font-bold text-center">فرحة</h3>
+                </div>
+                <div onclick="openDonation('ستر وغطاء')" class="bg-white p-6 rounded-2xl shadow-sm card-hover cursor-pointer text-center border border-gray-100 border-b-4 border-amber-700">
+                    <i class="fas fa-house-chimney text-3xl text-amber-700 mb-3"></i>
+                    <h3 class="font-bold text-center">ستر وغطاء</h3>
+                </div>
+                <div onclick="openDonation('همة')" class="bg-white p-6 rounded-2xl shadow-sm card-hover cursor-pointer text-center border border-gray-100 border-b-4 border-blue-600">
+                    <i class="fas fa-wheelchair text-3xl text-blue-600 mb-3"></i>
+                    <h3 class="font-bold text-center">همة</h3>
+                </div>
+                <div onclick="openDonation('إطعام')" class="bg-white p-6 rounded-2xl shadow-sm card-hover cursor-pointer text-center border border-gray-100 border-b-4 border-orange-700">
+                    <i class="fas fa-bowl-food text-3xl text-orange-700 mb-3"></i>
+                    <h3 class="font-bold text-center">إطعام</h3>
+                </div>
+                <div onclick="openDonation('أهدِ ثواباً')" class="bg-white p-6 rounded-2xl shadow-sm card-hover cursor-pointer text-center border border-gray-100 border-b-4 border-cyan-500">
+                    <i class="fas fa-heart text-3xl text-cyan-500 mb-3"></i>
+                    <h3 class="font-bold text-center">أهدِ ثواباً</h3>
+                </div>
+            </div>
+
+            <div id="donation-form-container" class="mt-12 bg-white p-8 rounded-2xl shadow-lg border border-green-100 max-w-2xl mx-auto hidden text-right">
+                <h3 id="form-title" class="text-2xl font-bold mb-6 text-green-800 border-b pb-2 text-right">بيانات التبرع</h3>
+                <div class="space-y-4 text-right">
+                    <input type="text" id="donor-name" placeholder="اسم المتبرع" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none text-right">
+                    <input type="tel" id="donor-phone" placeholder="رقم الهاتف" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none text-right">
+                    <input type="number" id="donation-amount" placeholder="المبلغ (جنيه)" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none text-right shadow-inner">
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <button onclick="payVia('voda')" class="bg-red-600 text-white p-4 rounded-xl font-bold hover:bg-red-700 transition shadow-sm text-center">فودافون كاش</button>
+                        <button onclick="payVia('insta')" class="bg-indigo-700 text-white p-4 rounded-xl font-bold hover:bg-indigo-800 transition shadow-sm text-center">إنستا باي</button>
+                    </div>
+                    <button onclick="sendDirectToWhatsApp()" class="w-full bg-green-600 text-white p-4 rounded-xl font-bold hover:bg-green-700 flex items-center justify-center shadow-md transition text-center">
+                        <i class="fab fa-whatsapp ml-2 text-xl"></i> إرسال التفاصيل واتساب
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zakat Calculator Section -->
+        <section id="zakat-calc-page" class="page-content hidden">
+            <div class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-lg border-t-8 border-yellow-500 text-right italic">
+                <h2 class="text-2xl font-bold text-center mb-8 text-yellow-800 not-italic text-right">حاسبة الزكاة الشاملة</h2>
+                <div class="bg-yellow-50 p-4 rounded-xl mb-6 text-sm flex justify-between not-italic text-right">
+                    <span>سعر الذهب الحالي (عيار 21):</span>
+                    <span id="gold-price" class="font-bold text-yellow-800 tracking-wide text-right">جاري التحديث...</span>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 not-italic text-right">
+                    <div class="text-right">
+                        <label class="block mb-2 font-bold text-gray-700 text-right">الأموال النقدية</label>
+                        <input type="number" id="z-cash" oninput="calcZakat()" placeholder="0.00" class="w-full p-3 bg-gray-50 border rounded-lg outline-none focus:border-yellow-500 text-right">
+                    </div>
+                    <div class="text-right">
+                        <label class="block mb-2 font-bold text-gray-700 text-right">الذهب عيار 21 (جرام)</label>
+                        <input type="number" id="z-gold" oninput="calcZakat()" placeholder="0.00" class="w-full p-3 bg-gray-50 border rounded-lg outline-none focus:border-yellow-500 text-right">
+                    </div>
+                    <div class="text-right">
+                        <label class="block mb-2 font-bold text-gray-700 text-right">الأسهم والسندات</label>
+                        <input type="number" id="z-stocks" oninput="calcZakat()" placeholder="0.00" class="w-full p-3 bg-gray-50 border rounded-lg outline-none focus:border-yellow-500 text-right text-right">
+                    </div>
+                    <div class="text-right text-right">
+                        <label class="block mb-2 font-bold text-gray-700 text-right">بضائع تجارية</label>
+                        <input type="number" id="z-trade" oninput="calcZakat()" placeholder="0.00" class="w-full p-3 bg-gray-50 border rounded-lg outline-none focus:border-yellow-500 text-right">
+                    </div>
+                </div>
+
+                <div class="mt-8 p-6 bg-green-50 rounded-xl border-2 border-dashed border-green-200 not-italic text-center">
+                    <div class="text-center text-gray-600 text-sm mb-1 uppercase tracking-wider font-bold text-center">إجمالي الزكاة الواجبة</div>
+                    <div id="zakat-total" class="text-4xl font-bold text-green-700 text-center tracking-wide text-center">0.00 <span class="text-lg text-green-600 text-center">جنيه</span></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-4 text-center not-italic italic text-center">نصاب الزكاة يعادل 85 جرام ذهب عيار 21. نسبة الزكاة 2.5%.</p>
+            </div>
+        </section>
+
+        <!-- Tasbeeh Section -->
+        <section id="tasbeeh-page" class="page-content hidden flex flex-col items-center justify-center min-h-[60vh] text-center text-center">
+            <div class="bg-white p-10 rounded-3xl shadow-xl flex flex-col items-center max-w-sm w-full border border-blue-50 text-center">
+                <h2 class="text-2xl font-bold text-blue-800 mb-8 text-center">المسبحة الإلكترونية</h2>
+                <div class="tasbeeh-circle shadow-lg mb-8 bg-blue-50 border-4 text-center text-center" onclick="incrementTasbeeh()">
+                    <span id="tasbeeh-count" class="text-5xl font-bold text-blue-900 text-center">0</span>
+                    <span class="text-xs text-blue-400 mt-2 italic text-center text-center">انقر هنا للتسبيح</span>
+                </div>
+                <div class="flex gap-4 w-full text-center">
+                    <button onclick="resetTasbeeh()" class="flex-1 py-3 bg-red-100 text-red-600 rounded-xl font-bold hover:bg-red-200 transition shadow-sm text-center">تصفير</button>
+                    <button onclick="saveTasbeeh()" class="flex-1 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition shadow-sm text-center">حفظ</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quran Section -->
+        <section id="quran-page" class="page-content hidden">
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col h-[80vh] text-right">
+                <div class="bg-green-700 p-4 text-white flex flex-wrap justify-between items-center gap-2 text-right">
+                    <div class="flex items-center gap-2 text-right">
+                        <select id="surahSelect" onchange="loadSurah()" class="bg-green-800 text-white rounded px-2 py-1 text-sm outline-none border border-green-600 text-right"></select>
+                        <select id="reciterSelect" onchange="loadSurah()" class="bg-green-800 text-white rounded px-2 py-1 text-sm outline-none border border-green-600 text-right">
+                            <option value="ar.alafasy">مشاري العفاسي</option>
+                            <option value="ar.husary">الشيخ الحصري</option>
+                            <option value="ar.abdulsamad">عبد الباسط</option>
+                        </select>
+                    </div>
+                    <button onclick="goToBookmark()" id="goToBookmarkBtn" class="bg-yellow-600 text-white px-3 py-1 rounded text-sm font-bold flex items-center gap-2 hover:bg-yellow-700 hidden shadow-md transition text-right">
+                        <i class="fas fa-bookmark text-right"></i> آخر علامة حفظ
+                    </button>
+                </div>
+                <div id="quran-viewer" class="flex-1 overflow-y-auto p-8 text-center quran-text text-3xl leading-[4.5rem] bg-[#fcfcfc] scroll-smooth text-right text-right">
+                    اختر سورة للبدء بالقراءة والاستماع
+                </div>
+                <div id="audio-player-bar" class="bg-gray-100 p-4 border-t flex flex-col md:flex-row items-center justify-between gap-4 hidden text-right text-right">
+                    <div class="flex items-center gap-4 text-right text-right">
+                        <button onclick="toggleAudio()" id="playBtn" class="bg-green-600 text-white w-12 h-12 rounded-full shadow-md flex items-center justify-center text-xl hover:bg-green-700 transition shadow-sm text-center text-center"><i class="fas fa-play text-center text-center"></i></button>
+                        <div class="text-right">
+                            <span id="currentAyahInfo" class="text-sm font-bold text-green-800 block text-right text-right"></span>
+                            <span class="text-xs text-gray-500 italic text-right text-right" id="reciterNameText">بصوت القارئ المختار</span>
+                        </div>
+                    </div>
+                    <button onclick="saveCurrentBookmark()" class="bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:bg-amber-700 transition shadow-sm text-center text-center">
+                        <i class="fas fa-tag text-center text-center"></i> حفظ العلامة
+                    </button>
+                    <audio id="quranAudio" onended="audioEnded()" class="hidden"></audio>
+                </div>
+            </div>
+        </section>
+
+        <!-- Azkar Section -->
+        <section id="azkar-page" class="page-content hidden">
+            <div class="grid md:grid-cols-2 gap-6 text-right text-right">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-blue-100 flex flex-col h-[75vh] text-right text-right">
+                    <h3 class="text-xl font-bold text-blue-800 mb-4 text-right text-right">أذكار المسلم</h3>
+                    <div class="flex gap-2 mb-6 text-right text-right">
+                        <button onclick="renderAzkar('morning')" class="flex-1 py-3 bg-blue-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-blue-700 transition shadow text-center text-center">أذكار الصباح</button>
+                        <button onclick="renderAzkar('evening')" class="flex-1 py-3 bg-indigo-700 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-indigo-800 transition shadow text-center text-center">أذكار المساء</button>
+                    </div>
+                    <div id="azkar-container" class="flex-1 overflow-y-auto space-y-4 quran-text pr-2 text-right text-right text-right"></div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-green-100 flex flex-col h-[75vh] text-right text-right">
+                    <h3 class="text-xl font-bold text-green-800 mb-4 text-right text-right">أحاديث نبوية شريفة (90 حديثاً)</h3>
+                    <div id="hadith-list" class="flex-1 overflow-y-auto space-y-4 pr-2 text-right text-right text-right"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blood Bank Section -->
+        <section id="blood-bank-page" class="page-content hidden">
+            <div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-lg border-r-8 border-red-600 text-right text-right text-right text-right">
+                <h2 class="text-2xl font-bold text-red-700 mb-6 text-center text-center text-center text-center text-center">بنك الدم للطوارئ - بجديدة الهالة</h2>
+                <div class="space-y-4 text-right text-right text-right">
+                    <input type="text" id="blood-name" placeholder="الاسم بالكامل" class="w-full p-3 border rounded-lg text-right outline-none text-right text-right">
+                    <input type="tel" id="blood-phone" placeholder="رقم الهاتف" class="w-full p-3 border rounded-lg text-right outline-none text-right text-right text-right">
+                    <select id="blood-type" class="w-full p-3 border rounded-lg bg-white text-right outline-none text-right text-right text-right">
+                        <option value="">اختر فصيلة الدم</option>
+                        <option value="A+">A+</option><option value="A-">A-</option>
+                        <option value="B+">B+</option><option value="B-">B-</option>
+                        <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                        <option value="O+">O+</option><option value="O-">O-</option>
+                    </select>
+                    <button onclick="sendBloodRegistry()" class="w-full bg-red-600 text-white font-bold py-3 rounded-xl hover:bg-red-700 shadow-lg transition text-center text-center text-center">إرسال البيانات</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Complaints Section -->
+        <section id="complaints-page" class="page-content hidden text-right text-right text-right text-right">
+            <div class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-xl border-t-8 border-orange-500 text-right text-right">
+                <h2 class="text-2xl font-bold text-orange-700 mb-2 text-right text-right text-right">صندوق الشكاوى والاقتراحات</h2>
+                <div class="space-y-4 mt-6 text-right text-right text-right text-right">
+                    <input type="text" id="comp-name" placeholder="الاسم (اختياري)" class="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-orange-500 text-right text-right text-right">
+                    <input type="tel" id="comp-phone" placeholder="رقم الهاتف" class="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-orange-500 text-right text-right text-right text-right text-right">
+                    <textarea id="comp-msg" rows="5" placeholder="اكتب رسالتك هنا..." class="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-orange-500 text-right text-right text-right text-right text-right"></textarea>
+                    <button onclick="submitComplaint()" class="w-full bg-orange-600 text-white font-bold py-4 rounded-xl hover:bg-orange-700 shadow-lg transition flex items-center justify-center gap-2 text-center text-center text-center">
+                        <i class="fab fa-whatsapp text-xl text-center text-center text-center"></i> إرسال للمسؤول
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Professional Islamic Designer Prayer Section -->
+    <div class="container mx-auto px-4 mt-12 mb-8 text-right text-right text-right">
+        <div class="islamic-box rounded-3xl p-8 max-w-4xl mx-auto text-center text-center text-center">
+            <div class="islamic-pattern-corner top-right rounded-tr-3xl shadow-sm text-right text-right"></div>
+            <div class="islamic-pattern-corner top-left rounded-tl-3xl shadow-sm text-right text-right text-right"></div>
+            <div class="islamic-pattern-corner bottom-right rounded-br-3xl shadow-sm text-right text-right text-right text-right"></div>
+            <div class="islamic-pattern-corner bottom-left rounded-bl-3xl shadow-sm text-right text-right text-right text-right text-right"></div>
+            
+            <div class="relative z-10 text-center text-center text-center">
+                <i class="fas fa-hands-praying text-4xl text-amber-600 mb-4 opacity-80 text-center text-center text-center"></i>
+                <h3 class="text-2xl font-bold text-green-900 mb-4 quran-text font-bold text-center text-center text-center">دعاء لـ مصمم المنصة ووالديه</h3>
+                <div class="bg-white/50 p-6 rounded-2xl border border-amber-100 shadow-inner text-center text-center text-center">
+                    <p class="text-xl md:text-2xl text-green-800 leading-[3.5rem] quran-text italic font-bold text-center text-center text-center">
+                        "اللهم اغفر لوالديه وارحمهما، وعافهما واعف عنهما، وأكرم نزلهما، ووسع مدخلهما، واغسلهما بالماء والثلج والبرد، ونقهما من الخطايا كما ينقى الثوب الأبيض من الدنس. اللهم اجعل هذا العمل صدقة جارية في ميزان حسناتهم إلى يوم الدين."
+                    </p>
+                </div>
+                <div class="mt-6 flex flex-col items-center text-center text-center text-center text-center">
+                    <p class="text-sm font-bold text-amber-800 tracking-widest uppercase text-center text-center text-center text-center text-center">Mrakby Visuals</p>
+                    <p class="text-xs text-gray-400 mt-1 italic text-center text-center text-center text-center text-center text-center text-center">صدقة جارية على روح أبي وأمي</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIMPLE PROFESSIONAL FOOTER -->
+    <footer class="bg-[#0f2a1a] text-gray-300 py-10 border-t-4 border-[#c5a059]">
+        <div class="container mx-auto px-6 text-right">
+            <div class="grid md:grid-cols-2 gap-10 items-start">
+                
+                <!-- Section 1: Info -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-mosque text-2xl text-[#c5a059]"></i>
+                        <h4 class="text-xl font-bold text-white">بيت مال المسلمين بالجديدة</h4>
+                    </div>
+                    <p class="text-sm leading-loose max-w-md opacity-80">
+                        منصة خيرية إسلامية تهدف لخدمة أهالي قرية الجديدة الهالة من خلال تنظيم أموال الزكاة والصدقات ودعم حفظة القرآن الكريم ومساعدة الفئات المستحقة.
+                    </p>
+                </div>
+
+                <!-- Section 2: Contact -->
+                <div class="flex flex-col md:items-end gap-6">
+                    <div class="text-right">
+                        <h4 class="text-lg font-bold text-white mb-2 border-r-4 border-[#c5a059] pr-3">تواصل معنا</h4>
+                        <p class="text-sm font-bold text-[#c5a059]">المدير المسؤول الأستاذ رضا زكى</p>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="flex gap-4">
+                        <a href="https://wa.me/201005262105" title="واتساب" class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center hover:bg-green-600 transition group shadow-sm border border-white/10">
+                            <i class="fab fa-whatsapp text-2xl group-hover:text-white"></i>
+                        </a>
+                        <a href="tel:01005262105" title="اتصال هاتف" class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center hover:bg-blue-600 transition group shadow-sm border border-white/10">
+                            <i class="fas fa-phone-alt text-xl group-hover:text-white"></i>
+                        </a>
+                        <a href="https://www.facebook.com/ALANSANUO" title="فيسبوك" class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center hover:bg-[#1877F2] transition group shadow-sm border border-white/10">
+                            <i class="fab fa-facebook-f text-2xl group-hover:text-white"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div class="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] font-bold tracking-wider opacity-60">
+                <p>جميع الحقوق محفوظة © 2026 - بيت مال المسلمين بجديدة الهالة</p>
+                <p class="uppercase">Designed by Mrakby Visuals</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- DATA & STATE ---
+        let goldPricePerGram = 0;
+        let prayerTimings = {};
+        let quranData = null, ayahsInSurah = [], currentAudioIndex = 0;
+        let savedBookmark = JSON.parse(localStorage.getItem('quranBookmark')) || null;
+        let tasbeehCount = parseInt(localStorage.getItem('tasbeehCount')) || 0;
+        let selectedProgram = "";
+
+        const morningAzkar = [
+            { text: "أعوذ بالله من الشيطان الرجيم (آية الكرسي): {اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ}", count: 1 },
+            { text: "بِسْمِ اللهِ الرَّحْمنِ الرَّحِيم (الإخلاص): قُلْ هُوَ اللَّهُ أَحَدٌ، اللَّهُ الصَّمَدُ، لَمْ يَلِدْ وَلَمْ يُولَدْ، وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ.", count: 3 },
+            { text: "بِسْمِ اللهِ الرَّحْمنِ الرَّحِيم (الفلق): قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ، مِن شَرِّ مَا خَلَقَ، وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ، وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ، وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ.", count: 3 },
+            { text: "بِسْمِ اللهِ الرَّحْمنِ الرَّحِيم (الناس): قُلْ أَعُوذُ بِرَبِّ النَّاسِ، مَلِكِ النَّاسِ، إِلَهِ النَّاسِ، مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ، الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ، مِنَ الْجِنَّةِ وَ النَّاسِ.", count: 3 },
+            { text: "أصبحنا وأصبح الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير، رب أسألك خير ما في هذا اليوم وخير ما بعده، وأعوذ بك من شر ما في هذا اليوم وشر ما بعده، رب أعوذ بك من الكسل وسوء الكبر، رب أعوذ بك من عذاب في النار وعذاب في القبر.", count: 1 },
+            { text: "اللهم بك أصبحنا، وبك أمسينا، وبك نحيا، وبك نموت، وإليك النشور.", count: 1 },
+            { text: "اللهم أنت ربي لا إله إلا أنت، خلقتني وأنا عبدك، وأنا على عهدك ووعدك ما استطعت، أعوذ بك من شر ما صنعت، أبوء لك بنعمتك علي، وأبوء لك بذنبي فاغفر لي فإنه لا يغفر الذنوب إلا أنت.", count: 1 },
+            { text: "اللهم إني أصبحت أشهدك وأشهد حملة عرشك، وملائكتك وجميع خلقك، أنك أنت الله لا إله إلا أنت وحدك لا شريك لك، وأن محمداً عبدك ورسولك.", count: 4 },
+            { text: "رضيت بالله رباً، وبالإسلام ديناً، وبمحمد صلى الله عليه وسلم نبياً.", count: 3 },
+            { text: "يا حي يا قيوم برحمتك أستغيث أصلح لي شأني كله ولا تكلني إلى نفسي طرفة عين.", count: 1 },
+            { text: "حسبي الله لا إله إلا هو عليه توكلت وهو رب العرش العظيم.", count: 7 },
+            { text: "بسم الله الذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم.", count: 3 },
+            { text: "اللهم عافني في بدني، اللهم عافني في سمعي، اللهم عافني في بصري، لا إله إلا أنت.", count: 3 },
+            { text: "سبحان الله وبحمده: عدد خلقه، ورضا نفسه، وزنة عرشه، ومداد كلماته.", count: 3 },
+            { text: "سبحان الله وبحمده.", count: 100 },
+            { text: "أستغفر الله وأتوب إليه.", count: 100 }
+        ];
+
+        const eveningAzkar = [
+            { text: "أعوذ بالله من الشيطان الرجيم (آية الكرسي): {اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...}", count: 1 },
+            { text: "بِسْمِ اللهِ الرَّحْمنِ الرَّحِيم (الإخلاص): قُلْ هُوَ اللَّهُ أَحَدٌ، اللَّهُ الصَّمَدُ، لَمْ يَلِدْ وَلَمْ يُولَدْ، وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ.", count: 3 },
+            { text: "بِسْمِ اللهِ الرَّحْمنِ الرَّحِيم (الفلق): قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ، مِن شَرِّ مَا خَلَقَ، وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ، وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ، وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ.", count: 3 },
+            { text: "بِسْمِ اللهِ الرَّحْمنِ الرَّحِيم (الناس): قُلْ أَعُوذُ بِرَبِّ النَّاسِ، مَلِكِ النَّاسِ، إِلَهِ النَّاسِ، مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ، الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ، مِنَ الْجِنَّةِ وَ النَّاسِ.", count: 3 },
+            { text: "أمسينا وأمسى الملك لله والحمد لله، لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير.", count: 1 },
+            { text: "أعوذ بكلمات الله التامات من شر ما خلق.", count: 3 },
+            { text: "اللهم بك أمسينا وبك أصبحنا وبك نحيا وبك نموت وإليك المصير.", count: 1 },
+            { text: "رضيت بالله رباً، وبالإسلام ديناً، وبمحمد صلى الله عليه وسلم نبياً.", count: 3 },
+            { text: "يا حي يا قيوم برحمتك أستغيث أصلح لي شأني كله ولا تكلني إلى نفسي طرفة عين.", count: 1 },
+            { text: "سبحان الله وبحمده.", count: 100 },
+            { text: "أستغفر الله وأتوب إليه.", count: 100 }
+        ];
+
+        window.onload = () => {
+            fetchPrayerTimes(); loadSurahList(); setupHadithModal(); fetchCurrentGoldPrice(); loadBukhariHadiths(); checkBookmarkButton();
+            document.getElementById('tasbeeh-count').innerText = tasbeehCount;
+        };
+
+        function showPage(id) { document.querySelectorAll('.page-content').forEach(p => p.classList.add('hidden')); const t = document.getElementById(id + '-page'); if (t) { t.classList.remove('hidden'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }
+        function closeModal() { document.getElementById('hadithModal').style.display = 'none'; }
+        function setupHadithModal() {
+            const h = ["إنَّ اللَّهَ في عَوْنِ العَبْدِ ما كانَ العَبْدُ في عَوْنِ أَخِيهِ", "المؤمنُ للمؤمنِ كالبُنيانِ يشدُّ بعضُه بعضًا", "اتَّقوا النارَ ولو بشقِّ تمرةٍ"];
+            document.getElementById('dailyHadithText').innerText = h[Math.floor(Math.random() * h.length)];
+            setTimeout(() => document.getElementById('hadithModal').style.display = 'flex', 1500);
+        }
+
+        async function fetchPrayerTimes() {
+            const city = document.getElementById('citySelect')?.value || 'Mansoura';
+            try {
+                const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=Egypt&method=5`);
+                const data = await res.json();
+                prayerTimings = data.data.timings;
+                document.getElementById('date-display').innerText = `الموافق: ${data.data.date.readable} ميلادي`;
+                document.getElementById('hijri-display').innerText = `${data.data.date.hijri.day} ${data.data.date.hijri.month.ar} ${data.data.date.hijri.year} هـ`;
+                renderPrayerTimes(); startCountdown();
+            } catch (err) { }
+        }
+
+        function renderPrayerTimes() {
+            const pArr = [{ name: 'الفجر', key: 'Fajr' }, { name: 'الشروق', key: 'Sunrise' }, { name: 'الظهر', key: 'Dhuhr' }, { name: 'العصر', key: 'Asr' }, { name: 'المغرب', key: 'Maghrib' }, { name: 'العشاء', key: 'Isha' }];
+            const list = document.getElementById('prayer-list'); if (!list) return; list.innerHTML = "";
+            const now = new Date(); const curMin = now.getHours() * 60 + now.getMinutes();
+            pArr.forEach(p => {
+                const timeStr = prayerTimings[p.key]; const [h, m] = timeStr.split(':').map(Number); const pMin = h * 60 + m;
+                const item = document.createElement('div'); item.className = "flex justify-between items-center p-3 rounded-lg text-sm transition border-b border-gray-50 shadow-sm text-right";
+                if (curMin >= pMin && curMin < pMin + 45) item.classList.add('prayer-active');
+                item.innerHTML = `<span class="font-bold text-right text-right">${p.name}</span><span class="tracking-wide text-left text-left">${timeStr}</span>`;
+                list.appendChild(item);
+            });
+        }
+
+        function startCountdown() {
+            if (window.prayerInterval) clearInterval(window.prayerInterval);
+            const pArr = [{ name: 'الفجر', key: 'Fajr' }, { name: 'الظهر', key: 'Dhuhr' }, { name: 'العصر', key: 'Asr' }, { name: 'المغرب', key: 'Maghrib' }, { name: 'العشاء', key: 'Isha' }];
+            window.prayerInterval = setInterval(() => {
+                const now = new Date(); let next = null, minDiff = Infinity;
+                pArr.forEach(p => {
+                    const [h, m] = prayerTimings[p.key].split(':').map(Number); const pDate = new Date(now); pDate.setHours(h, m, 0, 0);
+                    if (pDate > now) { const d = pDate - now; if (d < minDiff) { minDiff = d; next = p; } }
+                });
+                if (!next) { const [h, m] = prayerTimings['Fajr'].split(':').map(Number); const pDate = new Date(now); pDate.setDate(pDate.getDate() + 1); pDate.setHours(h, m, 0, 0); minDiff = pDate - now; next = pArr[0]; }
+                const h = Math.floor(minDiff / 3600000), m = Math.floor((minDiff % 3600000) / 60000), s = Math.floor((minDiff % 60000) / 1000);
+                document.getElementById('timer').innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+                document.getElementById('next-prayer-name').innerText = `المتبقي لصلاة ${next.name}`;
+            }, 1000);
+        }
+
+        async function fetchCurrentGoldPrice() {
+            const apiKey = ""; const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            try {
+                const res = await fetch(url, { method: 'POST', body: JSON.stringify({ contents: [{ parts: [{ text: "What is the current exact price of 1 gram of 21k gold in Egypt in EGP today? Return ONLY the number." }] }], tools: [{ google_search: {} }] }) });
+                const data = await res.json(); const price = parseFloat(data.candidates?.[0]?.content?.parts?.[0]?.text.replace(/[^\d.]/g, ''));
+                goldPricePerGram = price || 3680; document.getElementById('gold-price').innerText = goldPricePerGram.toLocaleString('ar-EG') + " جنيه"; calcZakat();
+            } catch (e) { goldPricePerGram = 3680; document.getElementById('gold-price').innerText = goldPricePerGram.toLocaleString('ar-EG') + " جنيه"; }
+        }
+
+        function calcZakat() {
+            const cash = parseFloat(document.getElementById('z-cash').value) || 0;
+            const gold = parseFloat(document.getElementById('z-gold').value) || 0;
+            const stocks = parseFloat(document.getElementById('z-stocks').value) || 0;
+            const trade = parseFloat(document.getElementById('z-trade').value) || 0;
+            const total = cash + (gold * goldPricePerGram) + stocks + trade;
+            const zakat = total >= (85 * goldPricePerGram) ? total * 0.025 : 0;
+            document.getElementById('zakat-total').innerText = zakat.toLocaleString('ar-EG') + " جنيه";
+        }
+
+        function incrementTasbeeh() { tasbeehCount++; document.getElementById('tasbeeh-count').innerText = tasbeehCount; if(tasbeehCount % 33 === 0 && navigator.vibrate) navigator.vibrate(50); }
+        function resetTasbeeh() { tasbeehCount = 0; document.getElementById('tasbeeh-count').innerText = 0; localStorage.setItem('tasbeehCount', 0); }
+        function saveTasbeeh() { localStorage.setItem('tasbeehCount', tasbeehCount); }
+
+        async function loadSurahList() { try { const res = await fetch('https://api.alquran.cloud/v1/surah'), data = await res.json(); const sel = document.getElementById('surahSelect'); data.data.forEach(s => { const opt = document.createElement('option'); opt.value = s.number; opt.text = s.number + ". " + s.name; sel.appendChild(opt); }); } catch (e) { } }
+        async function loadSurah(target = null) {
+            const n = document.getElementById('surahSelect').value; if(!n) return;
+            const rec = document.getElementById('reciterSelect').value;
+            const recName = document.getElementById('reciterSelect').options[document.getElementById('reciterSelect').selectedIndex].text;
+            document.getElementById('reciterNameText').innerText = `بصوت الشيخ: ${recName}`;
+            document.getElementById('quran-viewer').innerHTML = "<div class='text-center py-10'><i class='fas fa-spinner fa-spin text-green-600 text-3xl'></i> جاري التحميل...</div>";
+            try {
+                const res = await fetch(`https://api.alquran.cloud/v1/surah/${n}/${rec}`), data = await res.json();
+                quranData = data.data; ayahsInSurah = data.data.ayahs;
+                document.getElementById('quran-viewer').innerHTML = quranData.ayahs.map((a, i) => {
+                    const isBm = savedBookmark && savedBookmark.surahNum == quranData.number && savedBookmark.ayahIndex == i;
+                    return `<span id="ayah-${i}" class="p-2 hover:bg-yellow-50 cursor-pointer inline-block ${isBm ? 'bookmark-glow' : ''}" onclick="playAyah(${i})">${a.text} <span class="text-green-600 text-xs">(${a.numberInSurah})</span> </span>`;
+                }).join(' ');
+                document.getElementById('audio-player-bar').classList.remove('hidden');
+                if (target !== null) setTimeout(() => playAyah(target), 500);
+            } catch (e) { }
+        }
+
+        function playAyah(i) {
+            currentAudioIndex = i; const audio = document.getElementById('quranAudio'); audio.src = ayahsInSurah[i].audio; audio.play();
+            document.querySelectorAll('.quran-text span').forEach(s => s.classList.remove('bg-yellow-200'));
+            const s = document.getElementById(`ayah-${i}`); if (s) { s.classList.add('bg-yellow-200'); s.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+            document.getElementById('currentAyahInfo').innerText = `سورة ${quranData.name} - آية: ${ayahsInSurah[i].numberInSurah}`;
+            document.getElementById('playBtn').innerHTML = '<i class="fas fa-pause"></i>';
+        }
+        function toggleAudio() { const a = document.getElementById('quranAudio'); if(a.paused) { if(!a.src) playAyah(0); else a.play(); document.getElementById('playBtn').innerHTML = '<i class="fas fa-pause"></i>'; } else { a.pause(); document.getElementById('playBtn').innerHTML = '<i class="fas fa-play"></i>'; } }
+        function audioEnded() { if(currentAudioIndex < ayahsInSurah.length - 1) playAyah(currentAudioIndex + 1); }
+        function saveCurrentBookmark() { if (!quranData) return; savedBookmark = { surahNum: quranData.number, ayahIndex: currentAudioIndex, timestamp: Date.now() }; localStorage.setItem('quranBookmark', JSON.stringify(savedBookmark)); loadSurah(); checkBookmarkButton(); }
+        function checkBookmarkButton() { if (savedBookmark) document.getElementById('goToBookmarkBtn').classList.remove('hidden'); }
+        function goToBookmark() { if (savedBookmark) { document.getElementById('surahSelect').value = savedBookmark.surahNum; loadSurah(savedBookmark.ayahIndex); } }
+
+        function renderAzkar(type) {
+            const c = document.getElementById('azkar-container'), list = type === 'morning' ? morningAzkar : eveningAzkar;
+            c.innerHTML = "";
+            list.forEach((z, i) => {
+                const card = document.createElement('div'); card.className = "zekr-card bg-gray-50 p-4 rounded-xl border border-gray-100 shadow-sm cursor-pointer hover:bg-white select-none text-right shadow-sm mb-2 text-right text-right";
+                let count = z.count;
+                card.innerHTML = `<p class="leading-relaxed mb-3 text-lg text-right text-right">${z.text}</p><div class="flex justify-between items-center"><span class="text-xs text-gray-400 italic">انقر للتسبيح</span><div class="zekr-count bg-blue-100 text-blue-700 font-bold" id="cnt-${type}-${i}">${count}</div></div>`;
+                card.onclick = () => { if (count > 0) { count--; const el = document.getElementById(`cnt-${type}-${i}`); el.innerText = count; if (count === 0) { card.classList.add('done'); el.className = "zekr-count bg-green-500 text-white shadow-sm"; el.innerHTML = '<i class="fas fa-check"></i>'; } } };
+                c.appendChild(card);
+            });
+            c.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function loadBukhariHadiths() {
+            const h = [
+                "إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى.", "خيركم من تعلم القرآن وعلمه.", "لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه.", "المسلم من سلم المسلمون من لسانه ويده.", "من سلك طريقاً يلتمس فيه علماً سهل الله له به طريقاً إلى الجنة.",
+                "بني الإسلام على خمس: شهادة أن لا إله إلا الله، وإقام الصلاة، وإيتاء الزكاة، والحج، وصوم رمضان.", "اتقوا النار ولو بشق تمرة.", "الدال على الخير كفاعله.", "ما نقصت صدقة من مال.", "أحب الأعمال إلى الله أدومها وإن قل.",
+                "تبسمك في وجه أخيك صدقة.", "حق المسلم على المسلم خمس: رد السلام، وعيادة المريض، واتباع الجنائز، وإجابة الدعوة، وتشميت العاطس.", "من بنى مسجداً لله بنى الله له بيتاً في الجنة.", "أنا وكافل اليتيم في الجنة كهاتين.", "والله في عون العبد ما كان العبد في عون أخيه.",
+                "من صلى البردين دخل الجنة.", "يسروا ولا تعسروا وبشروا ولا تنفروا.", "إن الله رفيق يحب الرفق في الأمر كله.", "لا يدخل الجنة من لا يأمن جاره بوائقه.", "خيركم خيركم لأهله وأنا خيركم لأهلي.",
+                "من يرد الله به خيرا يفقهه في الدين.", "الدين النصيحة.", "أحب البلاد إلى الله مساجدها.", "كل مسكر حرام.", "من غشنا فليس منا.",
+                "الحياء من الإيمان.", "الطهور شطر الإيمان.", "الحمد لله تملأ الميزان.", "الصدقة برهان.", "الصلاة نور.",
+                "القرآن حجة لك أو عليك.", "من كان يؤمن بالله واليوم الآخر فليقل خيرا أو ليصمت.", "اتق الله حيثما كنت.", "أتبع السيئة الحسنة تمحها.", "خالق الناس بخلق حسن.",
+                "من دل على خير فله مثل أجر فاعله.", "ما ملأ آدمي وعاء شرا من بطنه.", "المؤمن القوي خير وأحب إلى الله من المؤمن الضعيف.", "احرص على ما ينفعك.", "استعن بالله ولا تعجز.",
+                "الكلمة الطيبة صدقة.", "كل خطوة تمشيها إلى الصلاة صدقة.", "لا يرحم الله من لا يرحم الناس.", "من كظم غيظا وهو قادر على أن ينفذه دعاه الله على رؤوس الخلائق.", "ليس الغنى عن كثرة العرض ولكن الغنى غنى النفس.",
+                "سبحان الله وبحمده مئة مرة حطت خطاياه وإن كانت مثل زبد البحر.", "من سلك طريقا يطلب فيه علما سلك الله به طريقا من طرق الجنة.", "إنما العلم بالتعلم.", "لا ضرر ولا ضرار.", "بروا آباءكم تبركم أبناؤكم.",
+                "نعمتان مغبون فيهما كثير من الناس: الصحة والفراغ.", "من صام رمضان ثم أتبعه ستا من شوال كان كصيام الدهر.", "العمرة إلى العمرة كفارة لما بينهما.", "من قرأ حرفا من كتاب الله فله به حسنة.", "الساعي على الأرملة والمسكين كالمجاهد في سبيل الله.",
+                "كلكم راع وكلكم مسؤول عن رعيته.", "لا يدخل الجنة قاطع.", "من كان يؤمن بالله واليوم الآخر فليكرم ضيفه.", "أعطوا الأجير أجره قبل أن يجف عرقه.", "إذا قامت الساعة وفي يد أحدكم فسيلة فليغرسها.",
+                "خير الناس أنفعهم للناس.", "دع ما يريبك إلى ما لا يريبك.", "من كفي شر لقلقه وقبقبه وذبذبه فقد كفي.", "المؤمن للمؤمن كالبنيان يشد بعضه بعضا.", "انصر أخاك ظالما أو مظلوما.",
+                "عينان لا تمسهما النار: عين بكت من خشية الله وعين باتت تحرس في سبيل الله.", "لا تزول قدما عبد يوم القيامة حتى يسأل عن أربع: عمره، علمه، ماله، جسمه.", "من عادى لي وليا فقد آذنته بالحرب.", "بشر المشائين في الظلم إلى المساجد بالنور التام يوم القيامة.", "سيد الاستغفار أن تقول: اللهم أنت ربي...",
+                "أفضل الصلاة بعد الفريضة صلاة الليل.", "ما أسفل من الكعبين من الإزار ففي النار.", "من بنى لله مسجدا بنى الله له مثله في الجنة.", "الدنيا سجن المؤمن وجنة الكافر.", "لو أنكم توكلون على الله حق توكله لرزقكم كما يرزق الطير.",
+                "من استطاع منكم أن ينفع أخاه فليفعل.", "المستشار مؤتمن.", "كل قرض جر نفعا فهو ربا.", "من نفّس عن مؤمن كربة من كرب الدنيا نفس الله عنه كربة من كرب يوم القيامة.", "يسروا ولا تعسروا.",
+                "من صلى علي واحدة صلى عليه بها عشرا.", "من لزم الاستغفار جعل الله له من كل هم فرجا.", "أنا زعيم ببيت في ربض الجنة لمن ترك المراء وإن كان محقا.", "لا عدوى ولا طيرة.", "لا تباغضوا ولا تحاسدوا.",
+                "كونوا عباد الله إخوانا.", "من غسل يوم الجمعة واغتسل ثم بكر وابتكر...", "كلمتان خفيفتان على اللسان ثقيلتان في الميزان: سبحان الله وبحمده سبحان الله العظيم.", "من توضأ فأحسن الوضوء خرجت خطاياه من جسده.", "أحب الكلام إلى الله أربع: سبحان الله، والحمد لله، ولا إله إلا الله، والله أكبر."
+            ];
+            document.getElementById('hadith-list').innerHTML = h.map((t, i) => `<div class="p-4 bg-green-50 rounded-xl border border-green-100 text-sm italic shadow-sm hover:shadow-md transition text-right shadow-sm text-right text-right"><span class="text-green-700 font-bold ml-2">(${i+1})</span> ${t}</div>`).join('');
+        }
+
+        function openDonation(p) { selectedProgram = p; document.getElementById('donation-form-container').classList.remove('hidden'); document.getElementById('form-title').innerText = "تبرع لـ: " + p; document.getElementById('donation-form-container').scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+        function payVia(m) { const n = document.getElementById('donor-name').value, a = document.getElementById('donation-amount').value, p = document.getElementById('donor-phone').value; if(!n || !a || !p) { alert("يرجى ملء البيانات"); return; } if (m === 'voda') window.open(`tel:*9*7*01062303292*${a}#`); else window.open(`https://instapay.me/`); setTimeout(() => sendDirectToWhatsApp(), 3000); }
+        function sendDirectToWhatsApp() { const n = document.getElementById('donor-name').value, a = document.getElementById('donation-amount').value, p = document.getElementById('donor-phone').value; if(!n || !a || !p) return; const t = `تبرع جديد:%0Aالاسم: ${n}%0Aالهاتف: ${p}%0Aالمبلغ: ${a} ج%0Aالبرنامج: ${selectedProgram}`; window.open(`https://wa.me/201005262105?text=${t}`); }
+        function sendBloodRegistry() { const n = document.getElementById('blood-name').value, p = document.getElementById('blood-phone').value, t = document.getElementById('blood-type').value; if(!n || !p || !t) return; const msg = `متبرع دم جديد:%0Aالاسم: ${n}%0Aالهاتف: ${p}%0Aالفصيلة: ${t}`; window.open(`https://wa.me/201005262105?text=${msg}`); }
+        function submitComplaint() { const n = document.getElementById('comp-name').value || "فاعل خير", p = document.getElementById('comp-phone').value || "غير مسجل", m = document.getElementById('comp-msg').value; if(!m) { alert("يرجى كتابة الرسالة"); return; } const t = `رسالة من صندوق الشكاوى:%0Aمن: ${n}%0Aالهاتف: ${p}%0Aالرسالة: ${m}`; window.open(`https://wa.me/201005262105?text=${t}`); }
+    </script>
+</body>
+</html>
